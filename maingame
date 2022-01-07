@@ -1,0 +1,92 @@
+import turtle
+from random import choice
+
+def board():
+
+    turtle.penup()
+    turtle.setposition(-500, 200)
+    turtle.pendown()
+    turtle.forward(950)
+
+    turtle.penup()
+    turtle.setposition(-200, 400)
+    turtle.right(90)
+    turtle.pendown()
+    turtle.forward(800)
+
+    turtle.penup()
+    turtle.setposition(-500, -100)
+    turtle.left(90)
+    turtle.pendown()
+    turtle.forward(950)
+
+    turtle.penup()
+    turtle.setposition(200, 400)
+    turtle.right(90)
+    turtle.pendown()
+    turtle.forward(800)
+
+def draw_x(x, y):
+
+    turtle.penup()
+    turtle.home()
+    turtle.left(135)
+    turtle.setposition(x, y)
+    turtle.pendown()
+    turtle.forward(100)
+
+    turtle.penup()
+    turtle.setposition(x-60,y)
+    turtle.right(90)
+    turtle.pendown()
+    turtle.forward(100)
+
+def draw_o(x, y):
+
+    turtle.penup()
+    turtle.setposition(x, y)
+    turtle.pendown()
+    turtle.circle(50)
+
+def start_game():
+    xo = ['X', 'O']
+    players = ['1', '2']
+    board()
+
+    p1_name = turtle.textinput("Player", "Name of player 1:")
+    p2_name = turtle.textinput("Player", "Name of player 2:")
+    p1_symbol = choice(xo)
+
+    if p1_symbol == 'X':
+        print(f'{p1_name} is {p1_symbol} \n{p2_name} is O')
+    else:
+        print(f'{p1_name} is {p1_symbol} \n{p2_name} is X')
+
+    def x_move(x, y):
+        draw_x(x, y)
+        turtle.onscreenclick(o_move)
+
+    def o_move(x, y):
+        draw_o(x, y)
+        turtle.onscreenclick(x_move)
+
+    order = choice(players)
+
+    if order == '1':
+        print(f'{p1_name} goes first')
+        first = p1_name
+    else:
+        print(f'{p2_name} goes first')
+        first = p2_name
+
+    if first == p1_name and p1_symbol == 'X':
+        turtle.onscreenclick(x_move)
+    elif first == p2_name and p1_symbol == 'O':
+        turtle.onscreenclick(x_move)
+    else:
+        turtle.onscreenclick(o_move)
+
+    turtle.mainloop()
+
+
+start_game()
